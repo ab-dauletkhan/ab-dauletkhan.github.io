@@ -41,7 +41,7 @@
                 <p class="input-area__text text-center"><b>Add new item</b></p>
                 <div class="input-area sticky">
                     <div class="flex justify-between" v-if="vars.conditions.isEditing">
-                        <input class="inputField rounded-full" type="text" spellcheck="false" placeholder="Dauletkhan toxic..." onfocus="this.placeholder=''" onblur="this.placeholder='Dauletkhan toxic...'" v-model="vars.values.inputValue" ref="inputField" @keyup.enter="updateItem">
+                        <input class="inputField rounded-full" type="text" spellcheck="false" placeholder="What to do?" onfocus="this.placeholder=''" onblur="this.placeholder='What to do?'" v-model="vars.values.inputValue" ref="inputField" @keyup.enter="updateItem">
                         <button class="input__clear" @click="clearInput">
                             <img src="images/png/033-minus.png">
                         </button>
@@ -50,7 +50,7 @@
                         </button>
                     </div>
                     <div class="flex justify-between" v-else>
-                        <input class="inputField rounded-full" type="text" spellcheck="false" placeholder="Dauletkhan toxic..." onfocus="this.placeholder=''" onblur="this.placeholder='Dauletkhan toxic...'" v-model="vars.values.inputValue" ref="inputField" @keyup.enter="addItem">
+                        <input class="inputField rounded-full" type="text" spellcheck="false" placeholder="What to do?" onfocus="this.placeholder=''" onblur="this.placeholder='What to do?'" v-model="vars.values.inputValue" ref="inputField" @keyup.enter="addItem">
                         <button class="input__clear" @click="clearInput">
                             <img src="images/png/033-minus.png">
                         </button>
