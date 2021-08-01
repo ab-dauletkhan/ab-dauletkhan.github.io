@@ -1,3 +1,5 @@
+{% load static %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,9 +8,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
-    <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css">
-    <link rel="icon" type="image" href="images/png/042-checked.png">
+    <link href="{% static 'css/tailwind.css' %}" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'todolist/css/style.css' %}">
+    <link rel="icon" type="image" href="/media/images/png/042-checked.png">
     <title>To-Do</title>
 </head>
 <body onscroll="isStuck()">
@@ -19,7 +21,7 @@
             <div class="header__inner flex justify-between items-center">
                 <div class="header__left flex items-center">
                     <button class="header__logo inline-block" @click="vars.conditions.loginIsOpen = true">
-                        <img src="images/png/042-checked.png">
+                        <img src="/media/images/png/042-checked.png">
                     </button>
                     <button class="header__title inline-block" @click="vars.conditions.loginIsOpen = true">
                         To-Do List
@@ -27,10 +29,10 @@
                 </div>
                 <div class="header__right flex">
                     <button class="header__search inline-block" @click="vars.conditions.searchIsOpen = true">
-                        <img src="images/png/019-magnifying glass.png">
+                        <img src="/media/images/png/019-magnifying glass.png">
                     </button>
                     <button class="header__stats inline-block" @click="vars.conditions.popupIsOpen = true; openPopup()">
-                        <img src="images/png/029-medal.png">
+                        <img src="/media/images/png/029-medal.png">
                     </button>
                 </div>
             </div>
@@ -43,19 +45,19 @@
                     <div class="flex justify-between" v-if="vars.conditions.isEditing">
                         <input class="inputField rounded-full" type="text" spellcheck="false" placeholder="What to do?" onfocus="this.placeholder=''" onblur="this.placeholder='What to do?'" v-model="vars.values.inputValue" ref="inputField" @keyup.enter="updateItem">
                         <button class="input__clear" @click="clearInput">
-                            <img src="images/png/033-minus.png">
+                            <img src="/media/images/png/033-minus.png">
                         </button>
                         <button class="input__add" @click="updateItem">
-                            <img src="images/png/031-plus.png">
+                            <img src="/media/images/png/031-plus.png">
                         </button>
                     </div>
                     <div class="flex justify-between" v-else>
                         <input class="inputField rounded-full" type="text" spellcheck="false" placeholder="What to do?" onfocus="this.placeholder=''" onblur="this.placeholder='What to do?'" v-model="vars.values.inputValue" ref="inputField" @keyup.enter="addItem">
                         <button class="input__clear" @click="clearInput">
-                            <img src="images/png/033-minus.png">
+                            <img src="/media/images/png/033-minus.png">
                         </button>
                         <button class="input__add" @click="addItem">
-                            <img src="images/png/031-plus.png">
+                            <img src="/media/images/png/031-plus.png">
                         </button>
                     </div>
                 </div>
@@ -65,21 +67,23 @@
                         <li class="item" v-for="(todo, index) in vars.finalTodos" :key="'todo'+index">
                             <div :style="{ 'background-color': todo.bgColor }" class="item__content rounded-full w-full h-full flex items-center justify-between">
                                 <div class="item__left flex" @click="todo.pinned = false; todo.checked = !todo.checked; smthChanged()">
-                                    <input type="checkbox" :class="todo.checked && 'checked'">
-                                    <label :for="'todo'+index"><p>{{ todo.todoValue }}</p></label>
+                                    <label>
+                                        <input type="checkbox" :class="todo.checked && 'checked'">
+                                        <p>{{ todo.todoValue }}</p>
+                                    </label>
                                 </div>
                                 <div class="item__right flex">
                                     <button class="item__star" :class="todo.starred && 'starred'" @click="todo.starred = !todo.starred; smthChanged();">
-                                        <img src="images/png/007-favourite.png">
+                                        <img src="/media/images/png/007-favourite.png">
                                     </button>
                                     <button class="item__pin" :class="todo.pinned && 'pinned'" @click="todo.pinned = todo.checked ? false : !todo.pinned; smthChanged();">
-                                        <img src="images/png/013-push pin.png">
+                                        <img src="/media/images/png/013-push pin.png">
                                     </button>
                                     <button class="item__delete" @click="deleteItem(index)">
-                                        <img src="images/png/033-minus.png">
+                                        <img src="/media/images/png/033-minus.png">
                                     </button>
                                     <button class="item__edit" @click="editItem(index, todo.todoValue)">
-                                        <img src="images/png/pencil.png">
+                                        <img src="/media/images/png/pencil.png">
                                     </button>
                                 </div>
                             </div>
@@ -133,16 +137,16 @@
                     <input class="searchField search-input h-full rounded-full absolute top-0" type="text" spellcheck="false" placeholder="Search..." onfocus="this.placeholder=''" onblur="this.placeholder='Search...'" v-model="vars.values.searchValue" ref="searchField" @keyup.enter="vars.conditions.searchIsOpen = false; smthChanged();">
                     <div class="search-area__buttons flex items-center absolute top-0 right-0">
                         <button class="searchChecked" :class="vars.conditions.showOnlyChecked && 'showChecked'" @click="vars.conditions.showOnlyChecked = !vars.conditions.showOnlyChecked; vars.conditions.showOnlyPinned = vars.conditions.showOnlyChecked ? false : vars.conditions.showOnlyPinned;">
-                            <img src="images/png/042-checked.png">
+                            <img src="/media/images/png/042-checked.png">
                         </button>
                         <button class="searchStar" :class="vars.conditions.showOnlyStarred && 'showStarred'" @click="vars.conditions.showOnlyStarred = !vars.conditions.showOnlyStarred;">
-                            <img src="images/png/007-favourite.png">
+                            <img src="/media/images/png/007-favourite.png">
                         </button>
                         <button class="searchPin" :class="vars.conditions.showOnlyPinned && 'showPinned'" @click="vars.conditions.showOnlyPinned = !vars.conditions.showOnlyPinned; vars.conditions.showOnlyChecked = vars.conditions.showOnlyPinned ? false : vars.conditions.showOnlyChecked;">
-                            <img src="images/png/013-push pin.png">
+                            <img src="/media/images/png/013-push pin.png">
                         </button>
                         <button class="searchButton" @click="vars.conditions.searchIsOpen = false; smthChanged();">
-                            <img src="images/png/019-magnifying glass.png">
+                            <img src="/media/images/png/019-magnifying glass.png">
                         </button>
                     </div>
                 </div>
@@ -174,6 +178,6 @@
         </div>
     </div>
     <script src="https://unpkg.com/vue@next"></script>
-    <script src="script.js" type="text/JavaScript"></script>
+    <script src="{% static 'todolist/js/script.js' %}"></script>
 </body>
 </html>

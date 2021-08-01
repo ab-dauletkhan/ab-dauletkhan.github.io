@@ -1,0 +1,28 @@
+{
+  "name": "ab-dauletkhan",
+  "version": "1.0.0",
+  "description": "To Do List using Vue and Django",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "tailwind:dev": "tailwind -i ./static/css/tailwind.pcss -o ./static/css/tailwind.css -c ./tailwind.config.js --jit --watch --no-autoprefixer",
+    "tailwind:build": "tailwind -i ./static/css/tailwind.pcss -o ./static/css/tailwind.css -c ./tailwind.config.js --jit --minify"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ab-dauletkhan/ab-dauletkhan.github.io.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ab-dauletkhan/ab-dauletkhan.github.io/issues"
+  },
+  "homepage": "https://github.com/ab-dauletkhan/ab-dauletkhan.github.io#readme",
+  "devDependencies": {
+    "@tailwindcss/forms": "^0.3.3",
+    "autoprefixer": "^10.3.1",
+    "postcss": "^8.3.6",
+    "tailwindcss": "^2.2.7"
+  }
+}
